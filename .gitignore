@@ -50,3 +50,6 @@
 
 #include default location for packages
 !**/umbraco/Data/packages
+#IDE
+.vs
+.cursor
