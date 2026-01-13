@@ -1,0 +1,3 @@
+"use stict";
+
+console.log("site.js");

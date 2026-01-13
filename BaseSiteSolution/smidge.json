@@ -1,0 +1,8 @@
+{
+  "smidge": {
+    "dataFolder": "Smidge",
+    "version": "2",
+    "debug": true,
+    "bundles": []
+  }
+}
