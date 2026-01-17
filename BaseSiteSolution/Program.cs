@@ -1,4 +1,5 @@
 using BaseSiteSolution.Infrastructure.Smidge;
+using BaseSiteSolution.Infrastructure.Services;
 using Microsoft.Extensions.Options;
 using Smidge;
 using Smidge.Cache;
@@ -41,6 +42,9 @@ if (!isDevelopment)
 
 // Регистрация сервиса для очистки кеша Smidge
 builder.Services.AddScoped<SmidgeCacheService>();
+
+// Регистрация сервиса для генерации CSS с переменными стилей
+builder.Services.AddScoped<ThemeCssGeneratorService>();
 
 builder.CreateUmbracoBuilder()
     .AddBackOffice()

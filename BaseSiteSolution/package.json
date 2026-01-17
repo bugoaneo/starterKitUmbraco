@@ -1,0 +1,17 @@
+{
+  "name": "basesite-sass-compiler",
+  "version": "1.0.0",
+  "description": "SASS compilation for BaseSite Solution",
+  "scripts": {
+    "sass:watch": "concurrently \"npm run sass:watch:expanded\" \"npm run sass:watch:minified\"",
+    "sass:watch:expanded": "sass --watch wwwroot/css/core.scss:wwwroot/css/core.css --load-path=wwwroot/css --style=expanded --source-map",
+    "sass:watch:minified": "sass --watch wwwroot/css/core.scss:wwwroot/css/core.min.css --load-path=wwwroot/css --style=compressed --source-map",
+    "sass:compile": "sass wwwroot/css/core.scss:wwwroot/css/core.css --load-path=wwwroot/css --style=expanded --source-map",
+    "sass:minify": "sass wwwroot/css/core.scss:wwwroot/css/core.min.css --load-path=wwwroot/css --style=compressed --source-map",
+    "sass:build": "npm run sass:compile && npm run sass:minify"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "sass": "^1.77.0"
+  }
+}

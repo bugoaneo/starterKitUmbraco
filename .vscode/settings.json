@@ -1,0 +1,33 @@
+{
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": "/BaseSiteSolution/wwwroot/css",
+      "savePathSegmentKeys": null,
+      "savePathReplaceSegmentsWith": null
+    },
+    {
+      "format": "compressed",
+      "extensionName": ".min.css",
+      "savePath": "/BaseSiteSolution/wwwroot/css",
+      "savePathSegmentKeys": null,
+      "savePathReplaceSegmentsWith": null
+    }
+  ],
+  "liveSassCompile.settings.excludeList": [
+    "**/node_modules/**",
+    ".vscode/**"
+  ],
+  "liveSassCompile.settings.generateMap": true,
+  "liveSassCompile.settings.includeItems": [
+    "BaseSiteSolution/wwwroot/css/core.scss"
+  ],
+  "liveSassCompile.settings.autoprefix": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "liveSassCompile.settings.showOutputWindow": false,
+  "liveSassCompile.settings.compileOnWatch": true,
+  "liveSassCompile.settings.watchOnLaunch": true
+}

@@ -50,38 +50,39 @@
         // Добавляем query string параметр v={version} к URL
         // Оставляем оригинальную версию Smidge в расширении файла
         var cssWithVersion = System.Text.RegularExpressions.Regex.Replace(
-            cssHtml,
-            @"(href=[""'])([^""']*\.css[^""']*)([""'])",
-            match => {
-                var url = match.Groups[2].Value; // Полный URL включая .v1
+        cssHtml,
+        @"(href=[""'])([^""']*\.css[^""']*)([""'])",
+        match =>
+        {
+            var url = match.Groups[2].Value; // Полный URL включая .v1
 
-                // Проверяем, есть ли уже query string параметры
-                if (url.Contains("?"))
+            // Проверяем, есть ли уже query string параметры
+            if (url.Contains("?"))
+            {
+                // Если уже есть параметры, добавляем &v={version}
+                // Но сначала проверяем, нет ли уже параметра v=
+                if (url.Contains("&v=") || url.Contains("?v="))
                 {
-                    // Если уже есть параметры, добавляем &v={version}
-                    // Но сначала проверяем, нет ли уже параметра v=
-                    if (url.Contains("&v=") || url.Contains("?v="))
-                    {
-                        // Заменяем существующий параметр v=
-                        var newUrl = System.Text.RegularExpressions.Regex.Replace(
-                            url,
-                            @"[?&]v=[^&""']*",
-                            match2 => match2.Value.StartsWith("?") ? $"?v={version}" : $"&v={version}");
-                        return $"{match.Groups[1].Value}{newUrl}{match.Groups[3].Value}";
-                    }
-                    else
-                    {
-                        // Добавляем &v={version} к существующим параметрам
-                        return $"{match.Groups[1].Value}{url}&v={version}{match.Groups[3].Value}";
-                    }
+                    // Заменяем существующий параметр v=
+                    var newUrl = System.Text.RegularExpressions.Regex.Replace(
+                    url,
+                    @"[?&]v=[^&""']*",
+                    match2 => match2.Value.StartsWith("?") ? $"?v={version}" : $"&v={version}");
+                    return $"{match.Groups[1].Value}{newUrl}{match.Groups[3].Value}";
                 }
                 else
                 {
-                    // Нет параметров, добавляем ?v={version}
-                    return $"{match.Groups[1].Value}{url}?v={version}{match.Groups[3].Value}";
+                    // Добавляем &v={version} к существующим параметрам
+                    return $"{match.Groups[1].Value}{url}&v={version}{match.Groups[3].Value}";
                 }
-            },
-            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            }
+            else
+            {
+                // Нет параметров, добавляем ?v={version}
+                return $"{match.Groups[1].Value}{url}?v={version}{match.Groups[3].Value}";
+            }
+        },
+        System.Text.RegularExpressions.RegexOptions.IgnoreCase);
     }
     @Html.Raw(cssWithVersion)
 
@@ -93,14 +94,19 @@
 
 <body>
     <!-- HTML5 -->
-        <h1>
-            @if(debugMode){
-                @Html.Raw("I'm in debag");
-               <p>@debugMode</p>
-            }else {
-                @Html.Raw("I'm in Prod");
-            }
-        </h1>
+    <h1>
+        @if (debugMode)
+        {
+            @Html.Raw("I'm in debag")
+            ;
+            <p>@debugMode</p>
+        }
+        else
+        {
+            @Html.Raw("I'm in Prod")
+            ;
+        }
+    </h1>
     <main class="wrapper">
         @RenderBody()
         <div>
@@ -131,44 +137,45 @@
         // Добавляем query string параметр с версией кеш-бастера к URL бандлов Smidge
         // НЕ заменяем версию в расширении файла (.js.v1), так как файл создан с этой версией
         // Вместо этого добавляем ?v={version} или &v={version} для cache busting
-        var version = CacheBuster.GetValue();
+        var version2 = CacheBuster.GetValue();
         var jsHtml = jsOutput.ToString();
 
         // Добавляем query string параметр v={version} к URL
         // Оставляем оригинальную версию Smidge в расширении файла
         var jsWithVersion = System.Text.RegularExpressions.Regex.Replace(
-            jsHtml,
-            @"(src=[""'])([^""']*\.js[^""']*)([""'])",
-            match => {
-                var url = match.Groups[2].Value; // Полный URL включая .v1
+        jsHtml,
+        @"(src=[""'])([^""']*\.js[^""']*)([""'])",
+        match =>
+        {
+            var url = match.Groups[2].Value; // Полный URL включая .v1
 
-                // Проверяем, есть ли уже query string параметры
-                if (url.Contains("?"))
+            // Проверяем, есть ли уже query string параметры
+            if (url.Contains("?"))
+            {
+                // Если уже есть параметры, добавляем &v={version}
+                // Но сначала проверяем, нет ли уже параметра v=
+                if (url.Contains("&v=") || url.Contains("?v="))
                 {
-                    // Если уже есть параметры, добавляем &v={version}
-                    // Но сначала проверяем, нет ли уже параметра v=
-                    if (url.Contains("&v=") || url.Contains("?v="))
-                    {
-                        // Заменяем существующий параметр v=
-                        var newUrl = System.Text.RegularExpressions.Regex.Replace(
-                            url,
-                            @"[?&]v=[^&""']*",
-                            match2 => match2.Value.StartsWith("?") ? $"?v={version}" : $"&v={version}");
-                        return $"{match.Groups[1].Value}{newUrl}{match.Groups[3].Value}";
-                    }
-                    else
-                    {
-                        // Добавляем &v={version} к существующим параметрам
-                        return $"{match.Groups[1].Value}{url}&v={version}{match.Groups[3].Value}";
-                    }
+                    // Заменяем существующий параметр v=
+                    var newUrl = System.Text.RegularExpressions.Regex.Replace(
+                    url,
+                    @"[?&]v=[^&""']*",
+                    match2 => match2.Value.StartsWith("?") ? $"?v={version2}" : $"&v={version2}");
+                    return $"{match.Groups[1].Value}{newUrl}{match.Groups[3].Value}";
                 }
                 else
                 {
-                    // Нет параметров, добавляем ?v={version}
-                    return $"{match.Groups[1].Value}{url}?v={version}{match.Groups[3].Value}";
+                    // Добавляем &v={version} к существующим параметрам
+                    return $"{match.Groups[1].Value}{url}&v={version2}{match.Groups[3].Value}";
                 }
-            },
-            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            }
+            else
+            {
+                // Нет параметров, добавляем ?v={version}
+                return $"{match.Groups[1].Value}{url}?v={version2}{match.Groups[3].Value}";
+            }
+        },
+        System.Text.RegularExpressions.RegexOptions.IgnoreCase);
     }
     @Html.Raw(jsWithVersion)
 </body>

@@ -1,0 +1,14 @@
+﻿body {
+    background: var(--backgroundColor, #fff);
+    color: var(--textColor, #111);
+    font-family: "Cormorant", sans-serif;
+    font-size: var(--globalFontSize, 16px);
+}
+
+h1 {
+    font-size: 2em;
+}
+
+a {
+    color: #fff;
+}
